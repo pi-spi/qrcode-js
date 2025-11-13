@@ -8,8 +8,6 @@ Ce package fonctionne dans tous les environnements JavaScript modernes :
 - Frameworks front (Angular, React, Vue, …)
 - Exécution côté serveur (Node.js, serverless)
 
-> ⚠️ D’autres SDK (Flutter, Java/Maven) viendront compléter la suite prochainement.
-
 ## Installation
 
 ```bash
