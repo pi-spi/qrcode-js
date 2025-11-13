@@ -1,0 +1,28 @@
+# Build output
+/dist
+
+# Node modules
+/node_modules
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Coverage / test artifacts
+/coverage
+/.vitest
+
+# Editor folders
+.idea/
+.vscode/
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+.scannerwork
+.DS_Store
+/snyk_report.html
+/snyk_report.json

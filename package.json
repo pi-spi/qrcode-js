@@ -1,0 +1,53 @@
+{
+  "name": "@pi-spi/qrcode",
+  "version": "0.1.0",
+  "description": "SDK JavaScript pour générer la payload EMV des QR Codes PI-SPI",
+  "license": "MIT",
+  "author": "BCEAO - PI-SPI",
+  "type": "module",
+  "main": "dist/index.cjs",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "dependencies": {
+    "qrcode": "^1.5.3"
+  },
+  "scripts": {
+    "build": "tsup --config tsup.config.ts",
+    "clean": "rm -rf dist",
+    "dev": "tsup --config tsup.config.ts --watch",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "keywords": [
+    "pi-spi",
+    "qr",
+    "emv",
+    "sdk",
+    "pispi"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pi-spi/qrcode"
+  },
+  "bugs": {
+    "url": "mailto:pi-spi@bceao.int"
+  },
+  "devDependencies": {
+    "@types/qrcode": "^1.5.6",
+    "@vitest/coverage-v8": "^1.6.1",
+    "tsup": "^7.2.0",
+    "typescript": "^5.4.0",
+    "vitest": "^1.6.0"
+  }
+}
