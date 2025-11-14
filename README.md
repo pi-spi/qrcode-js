@@ -64,12 +64,14 @@ DEFAULT_PISPI_LOGO_DATA_URL: string
 | Champ                   | Type     | Description                                                                                   |
 | ----------------------- | -------- | --------------------------------------------------------------------------------------------- |
 | `size`                  | `number` | Largeur/hauteur du SVG généré (pixels). Par défaut `400`.                                     |
-| `margin`                | `number` | Marge autour du QR (transmise à `qrcode`). Par défaut `2`.                                    |
+| `margin`                | `number` | Marge autour du QR en pixels. Par défaut `0` (le SVG utilise toute la surface).               |
 | `logoDataUrl`           | `string` | Data URL (`data:image/...`) du logo à intégrer. Défaut : logo PI-SPI.                         |
 | `logoSizeRatio`         | `number` | Ratio du logo par rapport à la taille totale (entre `0.08` et `0.25`). Défaut : `0.18`.       |
-| `logoPaddingRatio`      | `number` | Padding autour du logo (sur le carré blanc), relatif à la taille du logo. Défaut : `0.08`.    |
+| `logoPaddingRatio`      | `number` | Padding autour du logo (sur le pavé central) relatif à la taille du logo. Défaut : `0`.       |
 | `logoBackgroundColor`   | `string` | Couleur de fond du pavé qui reçoit le logo. Défaut : `#FFFFFF`.                               |
-| `logoBorderRadiusRatio` | `number` | Arrondi des coins du pavé, relatif à sa taille (`0` = carré, `0.5` = cercle). Défaut : `0.2`. |
+| `logoBorderRadiusRatio` | `number` | Arrondi des coins du pavé, relatif à sa taille (`0` = carré, `0.5` = cercle). Défaut : `0.5`. |
+| `dotColor`              | `string` | Couleur des “dots” du QR (hex, rgb, etc.). Défaut : `#1A1A1A`.                                |
+| `backgroundColor`       | `string` | Couleur de fond du QR (hors logo). Défaut : `#FFFFFF`.                                        |
 
 #### `QrValidationResult`
 

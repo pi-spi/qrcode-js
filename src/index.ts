@@ -46,6 +46,8 @@ export interface QrCodeSvgOptions {
     logoPaddingRatio?: number;
     logoBackgroundColor?: string;
     logoBorderRadiusRatio?: number;
+    dotColor?: string;
+    backgroundColor?: string;
 }
 
 type QRCodeModule = typeof import('qrcode');
@@ -303,8 +305,8 @@ export async function generateQrCodeSvg(
         errorCorrectionLevel: 'M',
     });
 
-    const dotColor = DEFAULT_DOT_COLOR;
-    const backgroundColor = DEFAULT_BACKGROUND_COLOR;
+    const dotColor = options.dotColor ?? DEFAULT_DOT_COLOR;
+    const backgroundColor = options.backgroundColor ?? DEFAULT_BACKGROUND_COLOR;
 
     return buildDotPatternSvg(qr, {
         size,
