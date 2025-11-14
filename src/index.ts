@@ -679,7 +679,7 @@ function buildDotPatternSvg(
     );
 
     return [
-        `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${svgSize} ${svgSize}" shape-rendering="geometricPrecision">`,
+        `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 ${svgSize} ${svgSize}" shape-rendering="geometricPrecision">`,
         backgroundRect,
         ...paths,
         logoSvg,
