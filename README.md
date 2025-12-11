@@ -10,8 +10,65 @@ Ce package fonctionne dans tous les environnements JavaScript modernes :
 
 ## Installation
 
+### Via npm (recommandé pour les projets Node.js et bundlers)
+
 ```bash
 npm install @pi-spi/qrcode
+```
+
+### Via CDN (pour utilisation directe dans le navigateur)
+
+Vous pouvez utiliser le package directement dans une page HTML via jsDelivr CDN :
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/@pi-spi/qrcode@latest/dist/index.umd.js"></script>
+```
+
+Ou avec une version spécifique :
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/@pi-spi/qrcode@0.3.0/dist/index.umd.js"></script>
+```
+
+Le package sera disponible globalement sous l'objet `PISPIQrcode` :
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>QR Code PI-SPI</title>
+</head>
+<body>
+    <div id="qr-container"></div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/@pi-spi/qrcode@latest/dist/index.umd.js"></script>
+    <script>
+        // Utilisation de l'API globale PISPIQrcode
+        const payload = PISPIQrcode.buildPayloadString({
+            alias: '3497a720-ab11-4973-9619-534e04f263a1',
+            countryCode: 'CI',
+            qrType: 'STATIC',
+            referenceLabel: 'CAISSE_A01',
+            amount: 1500,
+        });
+        
+        console.log('Payload:', payload);
+        
+        // Générer un QR Code SVG
+        PISPIQrcode.generateQrCodeSvg({
+            alias: '3497a720-ab11-4973-9619-534e04f263a1',
+            countryCode: 'CI',
+            qrType: 'DYNAMIC',
+            referenceLabel: 'TX-001',
+            amount: 5000,
+        }, {
+            size: 300
+        }).then(svg => {
+            document.getElementById('qr-container').innerHTML = svg;
+        });
+    </script>
+</body>
+</html>
 ```
 
 ## Usage rapide

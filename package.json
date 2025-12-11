@@ -1,6 +1,6 @@
 {
   "name": "@pi-spi/qrcode",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "SDK JavaScript pour générer la payload EMV des QR Codes PI-SPI",
   "license": "MIT",
   "author": "BCEAO - PI-SPI",
@@ -13,8 +13,12 @@
       "import": "./dist/index.mjs",
       "require": "./dist/index.cjs",
       "types": "./dist/index.d.ts"
+    },
+    "./umd": {
+      "default": "./dist/index.umd.js"
     }
   },
+  "browser": "./dist/index.umd.js",
   "files": [
     "dist"
   ],
@@ -27,7 +31,8 @@
     "dev": "tsup --config tsup.config.ts --watch",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "prepublishOnly": "npm run clean && npm run build && npm run typecheck && npm test"
   },
   "keywords": [
     "pi-spi",
