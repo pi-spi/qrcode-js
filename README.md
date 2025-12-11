@@ -8,12 +8,67 @@ Ce package fonctionne dans tous les environnements JavaScript modernes :
 - Frameworks front (Angular, React, Vue, …)
 - Exécution côté serveur (Node.js, serverless)
 
-> ⚠️ D’autres SDK (Flutter, Java/Maven) viendront compléter la suite prochainement.
-
 ## Installation
+
+### Via npm (recommandé pour les projets Node.js et bundlers)
 
 ```bash
 npm install @pi-spi/qrcode
+```
+
+### Via CDN (pour utilisation directe dans le navigateur)
+
+Vous pouvez utiliser le package directement dans une page HTML via jsDelivr CDN :
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/@pi-spi/qrcode@latest/dist/index.umd.js"></script>
+```
+
+Ou avec une version spécifique :
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/@pi-spi/qrcode@0.3.0/dist/index.umd.js"></script>
+```
+
+Le package sera disponible globalement sous l'objet `PISPIQrcode` :
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>QR Code PI-SPI</title>
+</head>
+<body>
+    <div id="qr-container"></div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/@pi-spi/qrcode@latest/dist/index.umd.js"></script>
+    <script>
+        // Utilisation de l'API globale PISPIQrcode
+        const payload = PISPIQrcode.buildPayloadString({
+            alias: '3497a720-ab11-4973-9619-534e04f263a1',
+            countryCode: 'CI',
+            qrType: 'STATIC',
+            referenceLabel: 'CAISSE_A01',
+            amount: 1500,
+        });
+        
+        console.log('Payload:', payload);
+        
+        // Générer un QR Code SVG
+        PISPIQrcode.generateQrCodeSvg({
+            alias: '3497a720-ab11-4973-9619-534e04f263a1',
+            countryCode: 'CI',
+            qrType: 'DYNAMIC',
+            referenceLabel: 'TX-001',
+            amount: 5000,
+        }, {
+            size: 300
+        }).then(svg => {
+            document.getElementById('qr-container').innerHTML = svg;
+        });
+    </script>
+</body>
+</html>
 ```
 
 ## Usage rapide
@@ -66,12 +121,14 @@ DEFAULT_PISPI_LOGO_DATA_URL: string
 | Champ                   | Type     | Description                                                                                   |
 | ----------------------- | -------- | --------------------------------------------------------------------------------------------- |
 | `size`                  | `number` | Largeur/hauteur du SVG généré (pixels). Par défaut `400`.                                     |
-| `margin`                | `number` | Marge autour du QR (transmise à `qrcode`). Par défaut `2`.                                    |
+| `margin`                | `number` | Marge autour du QR en pixels. Par défaut `0` (le SVG utilise toute la surface).               |
 | `logoDataUrl`           | `string` | Data URL (`data:image/...`) du logo à intégrer. Défaut : logo PI-SPI.                         |
 | `logoSizeRatio`         | `number` | Ratio du logo par rapport à la taille totale (entre `0.08` et `0.25`). Défaut : `0.18`.       |
-| `logoPaddingRatio`      | `number` | Padding autour du logo (sur le carré blanc), relatif à la taille du logo. Défaut : `0.08`.    |
+| `logoPaddingRatio`      | `number` | Padding autour du logo (sur le pavé central) relatif à la taille du logo. Défaut : `0`.       |
 | `logoBackgroundColor`   | `string` | Couleur de fond du pavé qui reçoit le logo. Défaut : `#FFFFFF`.                               |
-| `logoBorderRadiusRatio` | `number` | Arrondi des coins du pavé, relatif à sa taille (`0` = carré, `0.5` = cercle). Défaut : `0.2`. |
+| `logoBorderRadiusRatio` | `number` | Arrondi des coins du pavé, relatif à sa taille (`0` = carré, `0.5` = cercle). Défaut : `0.5`. |
+| `dotColor`              | `string` | Couleur des “dots” du QR (hex, rgb, etc.). Défaut : `#1A1A1A`.                                |
+| `backgroundColor`       | `string` | Couleur de fond du QR (hors logo). Défaut : `#FFFFFF`.                                        |
 
 #### `QrValidationResult`
 

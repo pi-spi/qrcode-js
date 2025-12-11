@@ -46,6 +46,8 @@ export interface QrCodeSvgOptions {
     logoPaddingRatio?: number;
     logoBackgroundColor?: string;
     logoBorderRadiusRatio?: number;
+    dotColor?: string;
+    backgroundColor?: string;
 }
 
 type QRCodeModule = typeof import('qrcode');
@@ -80,9 +82,9 @@ const DEFAULT_MERCHANT_CITY = 'X';
 const DEFAULT_REFERENCE_LABEL_TAG = '05';
 const DEFAULT_MERCHANT_CHANNEL_TAG = '11';
 const DEFAULT_LOGO_SIZE_RATIO = 0.18;
-const DEFAULT_LOGO_PADDING_RATIO = 0.08;
-const DEFAULT_LOGO_BORDER_RADIUS_RATIO = 0.2;
-const DEFAULT_MARGIN = 2;
+const DEFAULT_LOGO_PADDING_RATIO = 0;
+const DEFAULT_LOGO_BORDER_RADIUS_RATIO = 0.5;
+const DEFAULT_MARGIN = 0;
 const DEFAULT_SVG_SIZE = 400;
 const DEFAULT_DOT_COLOR = '#1A1A1A';
 const DEFAULT_BACKGROUND_COLOR = '#FFFFFF';
@@ -303,8 +305,8 @@ export async function generateQrCodeSvg(
         errorCorrectionLevel: 'M',
     });
 
-    const dotColor = DEFAULT_DOT_COLOR;
-    const backgroundColor = DEFAULT_BACKGROUND_COLOR;
+    const dotColor = options.dotColor ?? DEFAULT_DOT_COLOR;
+    const backgroundColor = options.backgroundColor ?? DEFAULT_BACKGROUND_COLOR;
 
     return buildDotPatternSvg(qr, {
         size,
@@ -677,7 +679,7 @@ function buildDotPatternSvg(
     );
 
     return [
-        `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${svgSize} ${svgSize}" shape-rendering="geometricPrecision">`,
+        `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 ${svgSize} ${svgSize}" shape-rendering="geometricPrecision">`,
         backgroundRect,
         ...paths,
         logoSvg,
