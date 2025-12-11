@@ -49,11 +49,11 @@ Vérifiez que `dist/index.umd.js` existe et contient bien le code avec `PISPIQrc
 ### 3. Vérifier la version
 
 Avant de publier, vérifiez que la version dans `package.json` est correcte :
-- Version actuelle : `0.3.0`
+- Version actuelle : `0.3.1`
 - Si vous faites des modifications, incrémentez la version selon [Semantic Versioning](https://semver.org/) :
-  - `0.3.0` → `0.3.1` (patch : corrections de bugs)
-  - `0.3.0` → `0.4.0` (minor : nouvelles fonctionnalités)
-  - `0.3.0` → `1.0.0` (major : changements incompatibles)
+  - `0.3.1` → `0.3.2` (patch : corrections de bugs)
+  - `0.3.1` → `0.4.0` (minor : nouvelles fonctionnalités)
+  - `0.3.1` → `1.0.0` (major : changements incompatibles)
 
 ### 4. Vérifier les fichiers à publier
 
@@ -101,7 +101,7 @@ Après publication, vérifiez que le package est bien disponible :
 1. **Sur npm** : https://www.npmjs.com/package/@pi-spi/qrcode
 2. **Via jsDelivr** (peut prendre quelques minutes pour l'indexation) :
    - Dernière version : https://cdn.jsdelivr.net/npm/@pi-spi/qrcode@latest/dist/index.umd.js
-   - Version spécifique : https://cdn.jsdelivr.net/npm/@pi-spi/qrcode@0.3.0/dist/index.umd.js
+   - Version spécifique : https://cdn.jsdelivr.net/npm/@pi-spi/qrcode@0.3.1/dist/index.umd.js
 
 ### 8. Tester le CDN
 
@@ -178,7 +178,7 @@ npm view @pi-spi/qrcode versions
 npm view @pi-spi/qrcode version
 
 # Dépublier une version (dans les 72 heures)
-npm unpublish @pi-spi/qrcode@0.3.0
+npm unpublish @pi-spi/qrcode@0.3.1
 ```
 
 ## URLs jsDelivr

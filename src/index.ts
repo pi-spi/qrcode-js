@@ -69,6 +69,14 @@ async function getQrCodeModule(): Promise<QRCodeModule> {
         return cachedQrCodeModule;
     }
 
+    // Dans le navigateur, utiliser QRCode global si disponible (depuis qrcode/build/qrcode.min.js)
+    if (typeof window !== 'undefined' && (window as any).QRCode) {
+        const resolved = resolveQrCodeModule((window as any).QRCode);
+        cachedQrCodeModule = resolved;
+        return resolved;
+    }
+
+    // Dans Node.js ou si QRCode global n'est pas disponible, utiliser l'import dynamique
     const module = await import('qrcode');
     const resolved = resolveQrCodeModule(module);
     cachedQrCodeModule = resolved;
