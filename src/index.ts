@@ -532,9 +532,7 @@ function extractAdditionalData(segment: string | undefined): {
         const merchantChannel = additionalSegments[DEFAULT_MERCHANT_CHANNEL_TAG];
         const errors: string[] = [];
 
-        if (!referenceLabel) {
-            errors.push('Tag 05 (Reference Label) manquant dans les données additionnelles.');
-        }
+        // Le Reference Label (Tag 05) est optionnel, pas besoin de vérifier sa présence
 
         if (!merchantChannel) {
             errors.push('Tag 11 (Merchant Channel) manquant dans les données additionnelles.');
@@ -576,7 +574,7 @@ function buildValidationData(
         alias: context.merchantInfo?.['01'] ?? '',
         countryCode: context.countryCode ?? '',
         qrType: mapQrTypeFromChannel(context.merchantChannel),
-        referenceLabel: context.referenceLabel ?? '',
+        referenceLabel: context.referenceLabel ?? '', // Chaîne vide si Tag 05 est absent (optionnel)
     };
 
     if (amountValue !== undefined) {
