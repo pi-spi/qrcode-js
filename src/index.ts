@@ -647,32 +647,42 @@ function buildDotPatternSvg(
         finderRadius
     )}" />`;
 
+    // Dessiner les 3 motifs de positionnement (finder) en rectangles pleins pour des lignes nettes
+    const finderSize = 7;
+    const finderOrigins: [number, number][] = [
+        [0, 0],
+        [moduleCount - finderSize, 0],
+        [0, moduleCount - finderSize],
+    ];
+    for (const [fc, fr] of finderOrigins) {
+        paths.push(
+            ...generateFinderPatternRects(
+                margin + fc * cellSize,
+                margin + fr * cellSize,
+                cellSize,
+                options.dotColor,
+                options.backgroundColor
+            )
+        );
+    }
+
     for (let row = 0; row < moduleCount; row += 1) {
         for (let col = 0; col < moduleCount; col += 1) {
             if (!isDarkModule(modules, moduleCount, row, col)) {
+                continue;
+            }
+            if (isFinderPattern(moduleCount, row, col)) {
                 continue;
             }
 
             const x = margin + col * cellSize + cellSize / 2;
             const y = margin + row * cellSize + cellSize / 2;
 
-            if (isFinderPattern(moduleCount, row, col)) {
-                paths.push(
-                    generateFinderPatternPath(
-                        x,
-                        y,
-                        cellSize,
-                        finderRadius,
-                        options.dotColor
-                    )
-                );
-            } else {
-                paths.push(
-                    `<circle cx="${formatSvgNumber(x)}" cy="${formatSvgNumber(y)}" r="${formatSvgNumber(
-                        dotRadius
-                    )}" fill="${options.dotColor}" />`
-                );
-            }
+            paths.push(
+                `<circle cx="${formatSvgNumber(x)}" cy="${formatSvgNumber(y)}" r="${formatSvgNumber(
+                    dotRadius
+                )}" fill="${options.dotColor}" />`
+            );
         }
     }
 
@@ -703,18 +713,30 @@ function isFinderPattern(moduleCount: number, row: number, col: number): boolean
     return (inTop && inLeft) || (inTop && inRight) || (inBottom && inLeft);
 }
 
-function generateFinderPatternPath(
-    x: number,
-    y: number,
+/**
+ * Génère les rectangles SVG pour un motif de positionnement (finder) 7×7 :
+ * carré externe 7×7, anneau 5×5 (couleur de fond), carré interne 3×3.
+ * Les bords sont des lignes nettes (rectangles pleins), pas des dots.
+ */
+function generateFinderPatternRects(
+    originX: number,
+    originY: number,
     cellSize: number,
-    radius: number,
-    color: string
-): string {
-    const centerX = formatSvgNumber(x);
-    const centerY = formatSvgNumber(y);
-    const radiusSvg = formatSvgNumber(radius);
+    dotColor: string,
+    backgroundColor: string
+): string[] {
+    const fmt = formatSvgNumber;
+    const out7 = cellSize * 7;
+    const out5 = cellSize * 5;
+    const out3 = cellSize * 3;
+    const off1 = cellSize;
+    const off2 = cellSize * 2;
 
-    return `<circle cx="${centerX}" cy="${centerY}" r="${radiusSvg}" fill="${color}" />`;
+    return [
+        `<rect x="${fmt(originX)}" y="${fmt(originY)}" width="${fmt(out7)}" height="${fmt(out7)}" fill="${dotColor}" />`,
+        `<rect x="${fmt(originX + off1)}" y="${fmt(originY + off1)}" width="${fmt(out5)}" height="${fmt(out5)}" fill="${backgroundColor}" />`,
+        `<rect x="${fmt(originX + off2)}" y="${fmt(originY + off2)}" width="${fmt(out3)}" height="${fmt(out3)}" fill="${dotColor}" />`,
+    ];
 }
 
 function generateLogoOverlay(

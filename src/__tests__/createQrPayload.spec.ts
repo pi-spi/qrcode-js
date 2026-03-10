@@ -705,7 +705,7 @@ describe('generateQrCodeSvg mocked matrices', () => {
         const module = await import('../index');
         const svg = await module.generateQrCodeSvg(input, { logoDataUrl: '' });
         expect(svg).toContain('<svg');
-        expect(svg).toContain('<circle');
+        expect(svg).toMatch(/<circle|<rect/);
     });
 
     it('génère un SVG avec une matrice sous forme de tableau', async () => {
@@ -722,7 +722,7 @@ describe('generateQrCodeSvg mocked matrices', () => {
         const module = await import('../index');
         const svg = await module.generateQrCodeSvg(input, { logoDataUrl: '' });
         expect(svg).toContain('<svg');
-        expect(svg).toContain('<circle');
+        expect(svg).toMatch(/<circle|<rect/);
     });
 
     it('génère un SVG avec une matrice à données linéaires', async () => {
@@ -739,7 +739,7 @@ describe('generateQrCodeSvg mocked matrices', () => {
         const module = await import('../index');
         const svg = await module.generateQrCodeSvg(input, { logoDataUrl: '' });
         expect(svg).toContain('<svg');
-        expect(svg).toContain('<circle');
+        expect(svg).toMatch(/<circle|<rect/);
     });
 
     it('ignore les modules non reconnus', async () => {
