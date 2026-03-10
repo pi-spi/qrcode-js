@@ -18,16 +18,21 @@ npm install @pi-spi/qrcode
 
 ### Via CDN (pour utilisation directe dans le navigateur)
 
-Vous pouvez utiliser le package directement dans une page HTML via jsDelivr CDN :
+Vous pouvez utiliser le package directement dans une page HTML via jsDelivr CDN. 
+**Important :** Le build UMD nécessite que la librairie `qrcode` soit chargée au préalable :
 
 ```html
+<!-- 1. Charger d'abord la librairie qrcode (build browser) -->
+<script src="https://cdn.jsdelivr.net/npm/qrcode@latest/build/qrcode.min.js"></script>
+<!-- 2. Ensuite charger @pi-spi/qrcode -->
 <script src="https://cdn.jsdelivr.net/npm/@pi-spi/qrcode@latest/dist/index.umd.js"></script>
 ```
 
-Ou avec une version spécifique :
+Ou avec des versions spécifiques :
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/@pi-spi/qrcode@0.3.0/dist/index.umd.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@pi-spi/qrcode@0.3.1/dist/index.umd.js"></script>
 ```
 
 Le package sera disponible globalement sous l'objet `PISPIQrcode` :
@@ -41,6 +46,9 @@ Le package sera disponible globalement sous l'objet `PISPIQrcode` :
 <body>
     <div id="qr-container"></div>
     
+    <!-- Charger d'abord qrcode (build browser) -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@latest/build/qrcode.min.js"></script>
+    <!-- Puis charger @pi-spi/qrcode -->
     <script src="https://cdn.jsdelivr.net/npm/@pi-spi/qrcode@latest/dist/index.umd.js"></script>
     <script>
         // Utilisation de l'API globale PISPIQrcode

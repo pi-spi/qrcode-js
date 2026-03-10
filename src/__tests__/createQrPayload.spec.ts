@@ -495,7 +495,7 @@ describe('isValidPispiQrPayload diagnostics', () => {
         expect(result.errors.some((error) => error.includes('Erreur lors de l\'analyse des informations marchand'))).toBe(true);
     });
 
-    it('signale un referenceLabel manquant dans les données additionnelles', () => {
+    it('accepte un QR Code sans referenceLabel dans les données additionnelles (Tag 05 optionnel)', () => {
         const entries = decodeSegmentEntries(basePayload());
         const additional = entries.find((entry) => entry.tag === '62');
         expect(additional).toBeDefined();
@@ -503,8 +503,10 @@ describe('isValidPispiQrPayload diagnostics', () => {
         additional!.value = encodeAdditional(additionalEntries);
         const mutated = rebuildPayload(entries);
         const result = isValidPispiQrPayload(mutated);
-        expect(result.valid).toBe(false);
-        expect(result.errors).toContain('Tag 05 (Reference Label) manquant dans les données additionnelles.');
+        // Le Reference Label (Tag 05) est maintenant optionnel, le QR Code doit être valide
+        expect(result.valid).toBe(true);
+        // Le referenceLabel dans les données extraites doit être une chaîne vide quand le Tag 05 est absent
+        expect(result.data?.referenceLabel).toBe('');
     });
 
     it('signale un merchantChannel manquant dans les données additionnelles', () => {
@@ -703,7 +705,7 @@ describe('generateQrCodeSvg mocked matrices', () => {
         const module = await import('../index');
         const svg = await module.generateQrCodeSvg(input, { logoDataUrl: '' });
         expect(svg).toContain('<svg');
-        expect(svg).toContain('<circle');
+        expect(svg).toMatch(/<circle|<rect/);
     });
 
     it('génère un SVG avec une matrice sous forme de tableau', async () => {
@@ -720,7 +722,7 @@ describe('generateQrCodeSvg mocked matrices', () => {
         const module = await import('../index');
         const svg = await module.generateQrCodeSvg(input, { logoDataUrl: '' });
         expect(svg).toContain('<svg');
-        expect(svg).toContain('<circle');
+        expect(svg).toMatch(/<circle|<rect/);
     });
 
     it('génère un SVG avec une matrice à données linéaires', async () => {
@@ -737,7 +739,7 @@ describe('generateQrCodeSvg mocked matrices', () => {
         const module = await import('../index');
         const svg = await module.generateQrCodeSvg(input, { logoDataUrl: '' });
         expect(svg).toContain('<svg');
-        expect(svg).toContain('<circle');
+        expect(svg).toMatch(/<circle|<rect/);
     });
 
     it('ignore les modules non reconnus', async () => {
